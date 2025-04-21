@@ -1,11 +1,19 @@
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
-        non_zero_nums = []
-        for n in nums:
-            if n != 0: non_zero_nums.append(n)
+        def swap(arr, i, j):
+            tmp = arr[i]
+            arr[i] = arr[j]
+            arr[j] = tmp
 
-        for i in range(len(nums)):
-            if i < len(non_zero_nums):
-                nums[i] = non_zero_nums[i]
-            else:
-                nums[i] = 0
+        l, r = 0, 0
+        while r < len(nums):
+            if l == r:
+                r += 1
+            elif nums[l] == 0 and nums[r] != 0:
+                swap(nums, l, r)
+            elif nums[l] == 0 and nums[r] == 0:
+                r += 1
+            elif nums[l] != 0 and nums[r] != 0:
+                l += 1
+            elif l < r:
+                l += 1
