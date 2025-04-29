@@ -1,24 +1,20 @@
 from collections import List
 
 class Solution:
-    def tupleGrid(self, grid: List[List[int]], reverse: bool) -> List[tuple]:
+    def rotate(self, grid: List[List[int]]) -> List[List[int]]:
         reval = []
         n = len(grid)
         for j in range(n):
             row = []
             for i in range(n):
-                if reverse:
-                    row.append(grid[i][j])
-                else:
-                    row.append(grid[j][i])
-            reval.append(tuple(row))
+                row.append(grid[i][j])
+            reval.append(row)
         return reval
 
     def equalPairs(self, grid: List[List[int]]) -> int:
-        grid1 = self.tupleGrid(grid, True)
-        grid2 = self.tupleGrid(grid, False)
+        grid2 = self.rotate(grid)
         answer = 0
-        for r1 in grid1:
+        for r1 in grid:
             for r2 in grid2:
                 if r1 == r2: answer += 1
 
