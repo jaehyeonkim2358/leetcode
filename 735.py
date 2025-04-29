@@ -4,20 +4,20 @@ class Solution:
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
         stack = []
         for a in asteroids:
-            is_alive = True
+            unbroken = True
             while a < 0 and len(stack) > 0 and stack[-1] > 0:
                 crash_result = stack[-1] + a
                 if crash_result > 0:    # 음수 부서짐
-                    is_alive = False
+                    unbroken = False
                     break
                 elif crash_result == 0: # 둘 다 부서짐
                     stack.pop()
-                    is_alive = False
+                    unbroken = False
                     break
                 else:                   # 양수 부서짐
                     stack.pop()
 
-            if is_alive:
+            if unbroken:
                 stack.append(a)
         return stack
 
