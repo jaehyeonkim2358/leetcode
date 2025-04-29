@@ -19,6 +19,7 @@ class Solution:
 
             if unbroken:
                 stack.append(a)
+
         return stack
 
 # 소행성이 충돌하는 경우는 양수 바로 뒤에 음수가 올 때 뿐이다.
