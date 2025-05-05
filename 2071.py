@@ -19,6 +19,7 @@ class Solution:
                     tmpWorkers.pop(task_index)
             return True
 
+        # 해결 가능한 최대 task 수를 이분탐색한다.
         s, e = 0, min(n, m) + 1
         while s < e:
             m = (s + e) // 2
