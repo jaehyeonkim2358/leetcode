@@ -7,23 +7,16 @@ from typing import Optional
 #         self.next = next
 class Solution:
     def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        length = self.getLength(head)
-        if length == 1: return None
+        if head == None or head.next == None: return None
 
-        cur = head
-        pre = None
-        for _ in range(length // 2):
-            pre = cur
-            cur = cur.next
+        prev = None
+        slow = fast = head
+        while fast and fast.next:
+            prev = slow
+            slow = slow.next
+            fast = fast.next.next
 
-        if cur and pre:
-            pre.next = cur.next
+        if prev:
+            prev.next = slow.next
+
         return head
-
-    def getLength(self, head):
-        cur = head
-        length = 1
-        while cur.next:
-            length += 1
-            cur = cur.next
-        return length
