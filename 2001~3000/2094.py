@@ -1,23 +1,26 @@
 class Solution:
     def findEvenNumbers(self, digits: List[int]) -> List[int]:
-        used = [False for _ in range(len(digits))]
-        answer = set()
-        self.generateNums(digits, used, answer, 0, 0)
-        return sorted(list(answer))
+        answer = []
+        counter = [0] * 10
+        for d in digits:
+            counter[d] += 1
 
-    def generateNums(self, digits, used, answer, result, depth):
-        if depth == 3:
-            answer.add(result)
-            return
-        for i in range(len(digits)):
-            d = digits[i]
-            if d == 0 and depth == 0: continue
-            if d % 2 == 1 and depth == 2: continue
-            if used[i]: continue
+        for num in range(100, 1000, 2):
+            flag = True
 
-            used[i] = True
-            old_result = result
-            result = result * 10 + d
-            self.generateNums(digits, used, answer, result, depth + 1)
-            result = old_result
-            used[i] = False
+            tmp = num
+            while tmp > 0:
+                n = tmp % 10
+                if counter[n] <= 0: flag = False
+                counter[n] -= 1
+                tmp //= 10
+
+            tmp = num
+            while tmp > 0:
+                n = tmp % 10
+                counter[n] += 1
+                tmp //= 10
+
+            if flag: answer.append(num)
+
+        return answer
