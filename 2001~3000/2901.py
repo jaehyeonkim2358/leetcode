@@ -1,7 +1,7 @@
 class Solution:
     def getWordsInLongestSubsequence(self, words: List[str], groups: List[int]) -> List[str]:
         N = len(words)
-        dp = [0] * N
+        dp = [0] * N # dp[i]에 words[i]가 마지막 요소인 subsequence의 길이를 저장
         parent = [-1] * N # parent[i]에 subsequence를 구성하는 words[i] 이전 요소의 index를 저장
         max_index = 0
         for i in range(N):
