@@ -5,11 +5,12 @@ class Solution:
         nums.sort()
         index = 0
         while index < len(nums):
-            self.biSearch(nums, index)
+            self.search(nums, index)
             index += self.counter[nums[index]]
         return self.answer
 
-    def biSearch(self, nums, n_index):
+    def search(self, nums, n_index):
+        # nums[n_index]와 nums[s] 또는 nums[e]가 같은 경우 '숫자개수 - 1' 만큼 이동해야한다.
         offset = lambda a, b: self.counter[nums[a]] - (nums[b] == nums[a])
 
         s, e = n_index + 1, len(nums) - 1
