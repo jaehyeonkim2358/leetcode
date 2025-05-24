@@ -1,27 +1,36 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        self.counter = Counter(nums)
-        self.answer = []
-        nums.sort()
-        index = 0
-        while index < len(nums):
-            self.search(nums, index)
-            index += self.counter[nums[index]]
-        return self.answer
-
-    def search(self, nums, n_index):
-        # nums[n_index]와 nums[s] 또는 nums[e]가 같은 경우 '숫자개수 - 1' 만큼 이동해야한다.
-        offset = lambda a, b: self.counter[nums[a]] - (nums[b] == nums[a])
-
-        s, e = n_index + 1, len(nums) - 1
-        while s < e:
-            result = nums[s] + nums[e] + nums[n_index]
-            if result == 0:
-                self.answer.append([nums[n_index], nums[s], nums[e]])
-                e -= offset(e, n_index)
-                s += offset(s, n_index)
+        ans = set()
+        p, n, z = [], [], []
+        for num in nums:
+            if num > 0:
+                p.append(num)
+            elif num < 0:
+                n.append(num)
             else:
-                if result > 0:
-                    e -= offset(e, n_index)
-                else:
-                    s += offset(s, n_index)
+                z.append(num)
+
+        if len(z) >= 3:
+            ans.add((0, 0, 0))
+
+        P, N = set(p), set(n)
+        if z:
+            for num in P:
+                if -num in N:
+                    ans.add((-num, 0, num))
+
+        for i in range(len(n)):
+            for j in range(i+1, len(n)):
+                if -(n[i]+n[j]) in P:
+                    a, c = min(n[i], n[j], -(n[i]+n[j])), max(n[i], n[j], -(n[i]+n[j]))
+                    b = -(a+c)
+                    ans.add((a, b, c))
+
+        for i in range(len(p)):
+            for j in range(i+1, len(p)):
+                if -(p[i]+p[j]) in N:
+                    a, c = min(p[i], p[j], -(p[i]+p[j])), max(p[i], p[j], -(p[i]+p[j]))
+                    b = -(a+c)
+                    ans.add((a, b, c))
+
+        return [list(item) for item in ans]
